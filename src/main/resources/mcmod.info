@@ -1,0 +1,16 @@
+[
+  {
+    "modid": "GambiarraConfiavel",
+    "name": "GambiarraConfiavel",
+    "description": "A simple mod who fixs some things using ASM",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "www.heyzeer0.cf",
+    "updateUrl": "",
+    "authorList": ["HeyZeer0"],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]
