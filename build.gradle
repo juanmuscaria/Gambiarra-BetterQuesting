@@ -15,6 +15,9 @@ buildscript {
     }
 }
 
+plugins {
+    id "com.github.johnrengelman.shadow" version "1.2.3"
+}
 apply plugin: 'forge'
 
 sourceCompatibility = 1.8
@@ -22,8 +25,8 @@ targetCompatibility = 1.8
 compileJava.options.encoding = 'UTF-8'
 
 version = "1.0"
-group= "a.b.c" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "gambiarra"
+group= "dev.bq_thermos_patch" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "BQ3-Thermos-Patch"
 
 
 ext {
@@ -74,30 +77,39 @@ repositories {
     }
 }
 
+
 dependencies {
-    shade("org.spongepowered:mixin:0.7.1-SNAPSHOT"){
+    compile('org.spongepowered:mixin:0.7.11-SNAPSHOT') {
+        // Mixin includes a lot of dependencies that are too up-to-date
         exclude module: 'launchwrapper'
         exclude module: 'guava'
+        exclude module: 'gson'
+        exclude module: 'commons-io'
+        exclude module: 'log4j-core'
+        compileOnly fileTree(dir: 'lib', include: ['*.jar'])
     }
-    compile 'com.google.code.gson:gson:2.8.0'
-    compileOnly fileTree(dir: 'lib', include: ['*.jar'])
 }
 
 jar {
     from project.mixinRefMap
 
     manifest {
-            attributes 'FMLCorePlugin': 'a.b.c.gambiarra.Plugin',
+            attributes 'FMLCorePlugin': 'dev.bq3_thermos_patch.Plugin',
                     'FMLCorePluginContainsFMLMod': 'false',
-                    'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
+                    "TweakClass": "shaded.org.spongepowered.asm.launch.MixinTweaker",
                     'TweakOrder': '0'
     }
 
-    configurations.shade.each { dep ->
-        from(project.zipTree(dep)){
-            include 'org/spongepowered', 'org/spongepowered/**'
-        }
-    }
 }
 
 processResources {}
+
+def refMap = "${tasks.compileJava.temporaryDir}" + File.separator + "mixins.tcneiadditions.refmap.json"
+shadowJar {
+    classifier = ""
+    configurations = []
+    relocate "org.spongepowered", "shaded.org.spongepowered"
+
+    from refMap
+}
+tasks.jar.finalizedBy(shadowJar)

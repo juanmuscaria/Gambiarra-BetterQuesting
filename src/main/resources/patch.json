@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package":"a.b.c.gambiarra",
+  "package":"dev.bq3_thermos_patch",
   "mixins":[
     "MixinPatch"
   ],

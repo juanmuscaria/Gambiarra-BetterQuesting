@@ -1,13 +1,13 @@
 [
   {
-    "modid": "GambiarraConfiavel",
-    "name": "GambiarraConfiavel",
-    "description": "A simple mod who fixs some things using ASM",
+    "modid": "BQ3ThermosFix",
+    "name": "BQ3ThermosFix",
+    "description": "BQ3-Thermos-Patch 2x2 crafting grid",
     "version": "${version}",
     "mcversion": "${mcversion}",
-    "url": "www.heyzeer0.cf",
+    "url": "https://github.com/GTNewHorizons/BQ3-Thermos-patch",
     "updateUrl": "",
-    "authorList": ["HeyZeer0"],
+    "authorList": ["HeyZeer0", "mitchej123"],
     "credits": "",
     "logoFile": "",
     "screenshots": [],

@@ -1,2 +1,3 @@
-# Gambiarra-BetterQuesting
-Gambiarra para corrigir um problema com o BetterQuesting e o Thermos
+# BQ-Thermos-patcb
+Fix Thermos bad cast on 2x2 crafting w/ Thermos 
+
