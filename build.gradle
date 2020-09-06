@@ -21,14 +21,12 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 compileJava.options.encoding = 'UTF-8'
 
-version = "1.0"
-group= "a.b.c" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "gambiarra"
-
+version = "2.0"
+group= "com.juanmuscaria"
 
 ext {
-    mixinSrg = new File(project.buildDir, 'tmp/mixins/mixin.magihandlers.srg')
-    mixinRefMap = new File(project.buildDir, "tmp/mixins/mixin.magihandlers.refmap.json")
+    mixinSrg = new File(project.buildDir, 'tmp/mixins/mixin.pcf.srg')
+    mixinRefMap = new File(project.buildDir, "tmp/mixins/mixin.playercontainer.refmap.json")
 }
 
 reobf.addExtraSrgFile project.mixinSrg
@@ -58,10 +56,6 @@ task copySrgs(type: Copy, dependsOn: 'genSrgs') {
     into 'build/srgs'
 }
 
-setupDecompWorkspace.dependsOn copySrgs
-setupDevWorkspace.dependsOn copySrgs
-compileJava.dependsOn copySrgs
-
 configurations {
     shade
     compile.extendsFrom shade
@@ -87,7 +81,7 @@ jar {
     from project.mixinRefMap
 
     manifest {
-            attributes 'FMLCorePlugin': 'a.b.c.gambiarra.Plugin',
+            attributes 'FMLCorePlugin': 'com.juanmuscaria.playercontainerfix.FMLCoreMod',
                     'FMLCorePluginContainsFMLMod': 'false',
                     'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
                     'TweakOrder': '0'
@@ -100,4 +94,16 @@ jar {
     }
 }
 
-processResources {}
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+        expand 'version': project.version, 'mcversion': project.minecraft.version
+    }
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
+compileJava.dependsOn copySrgs

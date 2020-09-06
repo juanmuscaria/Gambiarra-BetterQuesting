@@ -1,13 +1,15 @@
 [
   {
-    "modid": "GambiarraConfiavel",
-    "name": "GambiarraConfiavel",
-    "description": "A simple mod who fixs some things using ASM",
+    "modid": "PlayerContainerFix",
+    "name": "PlayerContainerFix",
+    "description": "Fix an unchecked cast on thermos.",
     "version": "${version}",
     "mcversion": "${mcversion}",
-    "url": "www.heyzeer0.cf",
     "updateUrl": "",
-    "authorList": ["HeyZeer0"],
+    "authorList": [
+      "juanmuscaria",
+      "brunoxkk0"
+    ],
     "credits": "",
     "logoFile": "",
     "screenshots": [],
